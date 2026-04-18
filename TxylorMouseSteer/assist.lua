@@ -7,6 +7,7 @@ local tc       = require "dss_tc"
 local launch   = require "dss_launch"
 local blip     = require "dss_blip"
 local nls      = require "dss_nls"
+local cruise   = require "dss_cruise"
 
 local mouseEnabled          = true
 local keyboardMode          = 0
@@ -95,6 +96,9 @@ function script.update(dt)
 	pedals.updateBrake(dt, brakeTarget)
 	pedals.brakeValue = abs.update(dt, data, pedals.brakeValue, steering.steerAngle)
 	data.brake = pedals.brakeValue
+
+	-- 4. CRUISE MODE (limita gas e brake em baixa velocidade)
+	cruise.update(dt, data)
 
 	local gearUpPressed   = ac.isKeyDown(ac.KeyIndex.E) or ac.isKeyDown(6)
 	local gearDownPressed = ac.isKeyDown(ac.KeyIndex.Q) or ac.isKeyDown(5)
