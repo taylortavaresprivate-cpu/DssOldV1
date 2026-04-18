@@ -58,15 +58,15 @@ cfg.BLIP_ENABLED       = true
 cfg.BLIP_INTENSITY     = 1.5
 cfg.BLIP_DURATION      = 200
 cfg.BLIP_MIN_RPM_DIFF  = 200
-cfg.BLIP_ATTACK_SPEED  = 15.0    -- Vel. subida do throttle (rápido = pico instantâneo)
-cfg.BLIP_RELEASE_SPEED = 4.0     -- Vel. descida do throttle (lento = cauda suave)
+cfg.BLIP_ATTACK_SPEED  = 15.0
+cfg.BLIP_RELEASE_SPEED = 4.0
 
 -- [NO-LIFT SHIFT]
 cfg.NLS_ENABLED       = true
-cfg.NLS_CUT_DURATION  = 150      -- Duração do corte em ms
-cfg.NLS_CUT_AMOUNT    = 0.2      -- Quanto throttle manter (0.0 = 0%, 0.2 = 20%, 1.0 = 100%)
-cfg.NLS_MIN_RPM       = 3000     -- RPM mínimo para ativar
-cfg.NLS_RELEASE_MULT  = 2.0      -- Multiplicador da velocidade de soltar (2.0 = 2x mais rápido)
+cfg.NLS_CUT_DURATION  = 150
+cfg.NLS_CUT_AMOUNT    = 0.2
+cfg.NLS_MIN_RPM       = 3000
+cfg.NLS_RELEASE_MULT  = 2.0
 
 cfg.SCROLL_GAS_ENABLED       = false
 cfg.SCROLL_GAS_STEP          = 0.10
@@ -232,7 +232,7 @@ function cfg.loadConfig()
 	if cfg.NLS_RELEASE_MULT  < 0.5  then cfg.NLS_RELEASE_MULT  = 0.5  end
 	if cfg.NLS_RELEASE_MULT  > 5.0  then cfg.NLS_RELEASE_MULT  = 5.0  end
 
-	-- [AUTO-BLIP] ★ CORREÇÃO: antes era um bloco NLS duplicado ★
+	-- [AUTO-BLIP]
 	cfg.BLIP_ENABLED       = getb("blip_enabled",       cfg.BLIP_ENABLED)
 	cfg.BLIP_INTENSITY     = getf("blip_intensity",      cfg.BLIP_INTENSITY)
 	cfg.BLIP_DURATION      = getf("blip_duration",       cfg.BLIP_DURATION)
@@ -284,6 +284,18 @@ function cfg.loadConfig()
 	if cfg.LAUNCH_RPM      > 20000 then cfg.LAUNCH_RPM      = 20000 end
 	if cfg.LAUNCH_CUT_TIME < 130   then cfg.LAUNCH_CUT_TIME = 130   end
 	if cfg.LAUNCH_CUT_TIME > 500   then cfg.LAUNCH_CUT_TIME = 500   end
+
+	-- [CRUISE MODE]
+	cfg.CRUISE_ENABLED    = getb("cruise_enabled",    cfg.CRUISE_ENABLED)
+	cfg.CRUISE_FULL_SPEED = getf("cruise_full_speed", cfg.CRUISE_FULL_SPEED)
+	cfg.CRUISE_GAS_MIN    = getf("cruise_gas_min",    cfg.CRUISE_GAS_MIN)
+	cfg.CRUISE_BRAKE_MIN  = getf("cruise_brake_min",  cfg.CRUISE_BRAKE_MIN)
+	if cfg.CRUISE_FULL_SPEED < 10.0 then cfg.CRUISE_FULL_SPEED = 10.0 end
+	if cfg.CRUISE_FULL_SPEED > 120.0 then cfg.CRUISE_FULL_SPEED = 120.0 end
+	if cfg.CRUISE_GAS_MIN   < 0.10  then cfg.CRUISE_GAS_MIN   = 0.10  end
+	if cfg.CRUISE_GAS_MIN   > 1.00  then cfg.CRUISE_GAS_MIN   = 1.00  end
+	if cfg.CRUISE_BRAKE_MIN < 0.10  then cfg.CRUISE_BRAKE_MIN = 0.10  end
+	if cfg.CRUISE_BRAKE_MIN > 1.00  then cfg.CRUISE_BRAKE_MIN = 1.00  end
 end
 
 -- Carrega na inicialização
