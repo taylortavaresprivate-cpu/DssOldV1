@@ -17,16 +17,12 @@ function M.draw()
 		ui.offsetCursorY(4)
 		u.hint('Suaviza acelerador e freio em baixa velocidade.')
 		ui.offsetCursorY(4)
-		ui.pushStyleColor(ui.StyleColor.Text, u.colOrange)
-		ui.text('  Pressione P para ativar/desativar.')
-		ui.popStyleColor()
-		ui.offsetCursorY(4)
-		u.cfgSlider('Vel. normal', 'cruise_full_speed', 10.0, 60.0, '%.0f km/h',
+		u.cfgSlider('Vel. normal', 'cruise_full_speed', 10.0, 120.0, '%.0f km/h',
 			'Acima disso, pedais voltam ao normal.')
 		ui.offsetCursorY(4)
 		ui.setNextItemWidth(u.getSliderWidth())
 		local newGasMin = ui.slider('##cruise_gas_min',
-			cfg.cruise_gas_min * 100, 10, 80, 'Gás mínimo:  %.0f%%')
+			cfg.cruise_gas_min * 100, 10, 100, 'Gás mínimo:  %.0f%%')
 		if ui.itemEdited() then cfg.cruise_gas_min = newGasMin / 100.0; data.dirty = true end
 		if cfg.cruise_gas_min ~= defaults.cruise_gas_min then
 			ui.sameLine(0,4)
@@ -34,7 +30,7 @@ function M.draw()
 		end
 		ui.setNextItemWidth(u.getSliderWidth())
 		local newBrkMin = ui.slider('##cruise_brake_min',
-			cfg.cruise_brake_min * 100, 10, 80, 'Freio mínimo:  %.0f%%')
+			cfg.cruise_brake_min * 100, 10, 100, 'Freio mínimo:  %.0f%%')
 		if ui.itemEdited() then cfg.cruise_brake_min = newBrkMin / 100.0; data.dirty = true end
 		if cfg.cruise_brake_min ~= defaults.cruise_brake_min then
 			ui.sameLine(0,4)
